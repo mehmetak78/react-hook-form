@@ -21,8 +21,9 @@ const schema = yup.object({
 }).required();
 
 const App = () => {
-    const {control, register, formState: { errors },  handleSubmit} = useForm<IFormInput>({
-        resolver: yupResolver(schema)});
+    const {control, register, formState: {errors}, handleSubmit} = useForm<IFormInput>({
+        resolver: yupResolver(schema)
+    });
 
     const onSubmit: SubmitHandler<IFormInput> = data => {
         console.log(data)
@@ -39,14 +40,16 @@ const App = () => {
             <Controller
                 name="iceCreamType"
                 control={control}
-                render={({field}) => <Select
-                    {...field}
-                    options={[
-                        {value: "chocolate", label: "Chocolate"},
-                        {value: "strawberry", label: "Strawberry"},
-                        {value: "vanilla", label: "Vanilla"}
-                    ]}
-                />}
+                rules={{ required: true }}
+                render={({field}) =>
+                    <Select
+                        {...field}
+                        options={[
+                            {value: "chocolate", label: "Chocolate"},
+                            {value: "strawberry", label: "Strawberry"},
+                            {value: "vanilla", label: "Vanilla"}
+                        ]}
+                    />}
             />
 
             <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue="test"
@@ -55,8 +58,8 @@ const App = () => {
             {errors.sample?.type === 'required' && "First name is required"}
             <p>{errors.sample?.message}</p>
 
-            <TextField  id="outlined-basic" label="Outlined" variant="outlined" defaultValue="test"
-                {...register("sss", { required: "Email Address is required" })} />
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue="test"
+                       {...register("sss", {required: "Email Address is required"})} />
             <p>{errors.sss?.message}</p>
             <input type="submit"/>
         </form>
